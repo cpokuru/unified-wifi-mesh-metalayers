@@ -25,18 +25,18 @@ DEPENDS = " \
     bridge-utils \
 "
 
-inherit cmake
 
-S = "${WORKDIR}/build"
+S = "${WORKDIR}/git"
+
+do_configure() {
+    # No configuration step needed since we are using custom Makefiles
+    :
+}
+
 
 do_compile() {
-    # Clone OneWiFi and Unified Wi-Fi Mesh
-    mkdir -p ${S}/easymesh_project
-    cd ${S}/easymesh_project
-    git clone --depth 1 https://github.com/rdkcentral/unified-wifi-mesh.git
-
     # Build Unified Easy Mesh
-    cd ../unified-wifi-mesh/build/ctrl
+    cd ${S}/build/ctrl
     make all
 
     cd ../cli
@@ -46,13 +46,14 @@ do_compile() {
     make all
 }
 
+
 do_install() {
     install -d ${D}/usr/bin
-    cp ${S}/easymesh_project/OneWifi/build/linux/output/OneWifi ${D}/usr/bin/
-    cp ${S}/easymesh_project/unified-wifi-mesh/build/ctrl/one_wifi_em_ctrl ${D}/usr/bin/
-    cp ${S}/easymesh_project/unified-wifi-mesh/build/cli/one_wifi_em_cli ${D}/usr/bin/
-    cp ${S}/easymesh_project/unified-wifi-mesh/build/agent/one_wifi_em_agent ${D}/usr/bin/
+    install -m 0755 ${S}/build/ctrl/onewifi_em_ctrl ${D}/usr/bin/
+    install -m 0755 ${S}/build/cli/onewifi_em_cli ${D}/usr/bin/
+    install -m 0755 ${S}/build/agent/onewifi_em_agent ${D}/usr/bin/
 }
+
 
 FILES_${PN} = "/usr/bin/*"
 
