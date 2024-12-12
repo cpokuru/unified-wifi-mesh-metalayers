@@ -9,12 +9,12 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=d5ad936b92355df92ed0d61bc9b54577"
 
 PV = "9.1.0"
 
-DEPENDS = "boost openssl mysql"
+DEPENDS = "boost openssl mariadb"
 
 inherit cmake
 
 SRC_URI = "https://cdn.mysql.com/Downloads/Connector-C++/mysql-connector-c++-${PV}-src.tar.gz"
-
+SRC_URI[sha256sum] = "70fb6ca28ac154a5784090b3d8cc4f91636c208cf07c0000e3d22f72b557be13"
 S = "${WORKDIR}/mysql-connector-c++-${PV}-src"
 
 EXTRA_OECMAKE += " \
@@ -58,7 +58,7 @@ FILES:${PN}-dbg += "${libdir}/.debug/lib*"
 
 PACKAGES = "${PN} ${PN}-dev ${PN}-jdbc ${PN}-jdbc-dev ${PN}-dbg"
 
-RDEPENDS:${PN} += "openssl mysql-client"
+RDEPENDS:${PN} += "openssl mariadb"
 RDEPENDS:${PN}-jdbc += "${PN}"
 
 BBCLASSEXTEND = "native nativesdk"
