@@ -8,9 +8,9 @@ DEPENDS = "boost mysql"
 
 inherit cmake
 
-SRC_URI = "https://dev.mysql.com/get/Downloads/Connector-C++/mysql-connector-c++-${PV}.tar.gz"
+SRC_URI = "https://dev.mysql.com/get/Downloads/Connector-C++/mysql-connector-c++-9.1.0.tar.gz"
 
-S = "${WORKDIR}/mysql-connector-c++-${PV}"
+S = "${WORKDIR}/mysql-connector-c++-9.1.0"
 
 EXTRA_OECMAKE += " \
     -DBUILD_STATIC=OFF \
